@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cutscene</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background-image: url('Opening/paperBG.gif'); /* Set background image */
+    background-size: cover; /* Cover the entire viewport */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; /* Add relative positioning */
+  }
+
+  #cutscene-container {
+    position: absolute; /* Add absolute positioning */
+    top: 50%; /* Position at the center vertically */
+    left: 50%; /* Position at the center horizontally */
+    transform: translate(-50%, -50%); /* Center the container */
+    width: 50%; /* Set container width to half of the viewport */
+    display: flex;
+    justify-content: space-between; /* Distribute items evenly */
+    align-items: center;
+  }
+
+  .cutscene-image {
+    width: 24%; /* Set image width to one-fourth of the container */
+    height: auto;
+    cursor: pointer;
+    transition: opacity 0.5s ease; /* Add transition effect */
+    opacity: 0; /* Initially hide images */
+  }
+
+  .cutscene-image.show {
+    opacity: 1; /* Make the image fully visible */
+  }
+</style>
+</head>
+<body>
+  <div id="cutscene-container">
+    <img class="cutscene-image" src="Opening/1.png" alt="Image 1">
+    <img class="cutscene-image" src="Opening/2.png" alt="Image 2">
+    <img class="cutscene-image" src="Opening/3.png" alt="Image 3">
+    <img class="cutscene-image" src="Opening/4.png" alt="Image 4">
+  </div>
+
+  <script>
+    var currentImageIndex = 0;
+    var images = document.querySelectorAll('.cutscene-image');
+
+    // Function to show the next image
+    function showNextImage() {
+      if (currentImageIndex < images.length) {
+        images[currentImageIndex].classList.add('show');
+        currentImageIndex++;
+      } else if (currentImageIndex === images.length) {
+        // On the fifth click, change the fourth image to "4new.png"
+        images[currentImageIndex - 1].src = 'Opening/4new.png';
+        images[currentImageIndex - 1].classList.add('show'); // Show the new image
+        currentImageIndex++;
+      } else if (currentImageIndex > images.length) {
+        window.location.href = 'lobby.html'; 
+      }
+    }
+
+    // Event listener to show the next image on any click
+    document.addEventListener('click', showNextImage);
+  </script>
+</body>
+</html>

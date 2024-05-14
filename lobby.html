@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Website Title</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background-image: url('background.gif');
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; /* Added position relative for positioning absolute elements */
+    overflow: hidden; /* Make the website unscrollable */
+  }
+
+  #title-container {
+    width: 100%; /* Smaller height for the title container */
+    position: absolute;
+    top: 0%;
+    left: 47%; /* Move the title container to the center horizontally */
+    transform: translateX(-50%); /* Center the title container */
+    text-align: center;
+  }
+
+  #title-container img {
+    max-width: 700px; /* Adjust the maximum width as needed */
+    height: auto;
+  }
+
+  .button {
+    position: absolute; /* Position the button absolutely */
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    outline: none;
+    bottom: 0px; /* Position the button 20px from the bottom */
+    width: 400px; /* Adjust the width as needed */
+    left: calc(50% - 230px); /* Centering the button horizontally */
+  }
+
+  .button img {
+    width: 100%; /* Make the button image responsive */
+    height: auto;
+  }
+
+  /* CSS for adjusting image sizes */
+  img.whatnumber,
+  img.whatnumberloop {
+    width: 100%; /* Set the width to 50% of the viewport */
+    height: 100%; /* Maintain aspect ratio */
+    position: absolute; /* Position the image absolutely */
+    top: 50%; /* Center the image vertically */
+    left: 50%; /* Center the image horizontally */
+    transform: translate(-50%, -50%); /* Center the image precisely */
+  }
+</style>
+</head>
+<body>
+  <div id="title-container">
+    <div id="title-inner">
+      <img src="title.gif" alt="Website Title">
+    </div>
+  </div>
+  <button class="button" onmousedown="pressButton()" onmouseup="releaseButton()">
+    <img id="buttonImg" src="button_unpressed.gif" alt="Button">
+  </button>
+
+  <script>
+    function pressButton() {
+      document.getElementById('buttonImg').src = 'button_pressed.gif';
+    }
+
+    function releaseButton() {
+      // Remove unnecessary elements
+      document.getElementById('title-container').remove();
+      document.querySelector('.button').remove();
+      // Set the background image to 'Opening/paperBG.gif'
+      document.body.style.backgroundImage = "url('Opening/paperBG.gif')";
+      // Show the 'whatnumber.gif' image once
+      var whatNumberImg = new Image();
+      whatNumberImg.classList.add('whatnumber'); // Apply CSS class
+      whatNumberImg.src = 'whatnumber.gif';
+      document.body.appendChild(whatNumberImg);
+      
+      // After 3 seconds, replace the image with 'whatnumberloop.gif'
+      setTimeout(function() {
+        whatNumberImg.remove(); // Remove the 'whatnumber.gif' image
+        var whatNumberLoopImg = new Image();
+        whatNumberLoopImg.classList.add('whatnumberloop'); // Apply CSS class
+        whatNumberLoopImg.src = 'whatnumberloop.gif';
+        document.body.appendChild(whatNumberLoopImg); // Show the 'whatnumberloop.gif' image
+
+        // Add event listener to detect click on the 'whatnumberloop.gif' image
+        document.body.addEventListener('click', function() {
+          window.location.href = '4_Flashback/flashback.html'; // Redirect to 'flashback.html' on click
+        });
+      }, 3000); // Adjust the timing as needed
+    }
+  </script>
+</body>
+</html>
